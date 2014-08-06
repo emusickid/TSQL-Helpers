@@ -97,9 +97,9 @@ SELECT * FROM sys.indexes WHERE object_id = object_id('trade')
 
 SELECT * from dbo.trade
 
-DBCC IND ('cs_9131_seminole_uat_apr23', 'dbo.trade', 1) 
+DBCC IND ('dbname', 'dbo.tableName', 1) 
 
-DBCC PAGE('cs_9131_seminole_uat_apr23',1,77024,0) WITH TABLERESULTS /*DBID, fileid, pagenumber)*/
+DBCC PAGE('dbname',1,77024,0) WITH TABLERESULTS /*DBID, fileid, pagenumber)*/
 GO
 
 /*Clear Wait Stats
@@ -159,7 +159,7 @@ ORDER BY er.cpu_time DESC
 
 
 /*Fragmentation Stats*/
-SELECT * FROM sys.dm_db_index_physical_stats(DB_ID(), OBJECT_ID('dbo.ngposition'), NULL, NULL , NULL);
+SELECT * FROM sys.dm_db_index_physical_stats(DB_ID(), OBJECT_ID('dbo.tableName'), NULL, NULL , NULL);
 
 
 SELECT 
@@ -174,7 +174,7 @@ SELECT
 	page_count,
 	record_count
 FROM 
-	sys.dm_db_index_physical_stats(DB_ID(), OBJECT_ID('cs_cee_dec_2.dbo.position'), NULL, NULL, NULL) stats
+	sys.dm_db_index_physical_stats(DB_ID(), OBJECT_ID('dbName.dbo.table'), NULL, NULL, NULL) stats
 	INNER JOIN sys.databases db ON stats.database_id = db.database_id
 	INNER JOIN sys.tables tables ON stats.object_id = tables.object_id
 	INNER JOIN sys.indexes ix ON tables.object_id = ix.object_id AND stats.index_id = ix.index_id
@@ -464,11 +464,11 @@ GO
 USE [master]
 
 RESTORE DATABASE [QA_Calpine_GR2014 ]
-FROM DISK = N'E:\dbbackups\calpine.bak'
+FROM DISK = N'E:\dbbackups\db.bak'
 WITH FILE = 1
-	,MOVE N'allegro_gold' TO N'E:\allegrodata\QA_Calpine_GR2014\cs_9133_calpine_migration2_apr18.mdf'
-	,MOVE N'allegro_gold_log' TO N'E:\allegrodata\QA_Calpine_GR2014\cs_9133_calpine_migration2_apr18_log.ldf'
-	,MOVE N'allegro_gold_log2' TO N'E:\allegrodata\QA_Calpine_GR2014\cs_9133_calpine_migration2_apr18_log1.ldf'
+	,MOVE N'allegro_gold' TO N'path.mdf'
+	,MOVE N'allegro_gold_log' TO N'path.ldf'
+	,MOVE N'allegro_gold_log2' TO N'path.ldf'
 	,NOUNLOAD
 	,REPLACE
 	,STATS = 5
