@@ -11,7 +11,7 @@ SELECT
 	er.reads,
 	st.text as SQLText,
 	es.program_name,
-	--DB_NAME(es.database_id) AS DatabaseName,
+	DB_NAME(es.database_id) AS DatabaseName,
 	'kill ' + CAST(er.session_id as VARCHAR(3)),
 	er.percent_complete,
 	er.estimated_completion_time/1000/60 AS EstimatedMinutesRemaining,
