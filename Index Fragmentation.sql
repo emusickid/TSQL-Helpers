@@ -12,4 +12,4 @@ FROM
 	INNER JOIN sys.indexes t2 ON t1.object_id = t2.object_id AND t1.index_id = t2.index_id
 WHERE
 	avg_fragmentation_in_percent > 20
-ORDER BY 6 DESC
+ORDER BY 2 DESC
